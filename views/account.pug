@@ -12,11 +12,15 @@ block content
 		.user-view
 			nav.user-view__menu
 				ul.side-nav
-				
-					+navItem('#', 'Cài đặt', 'settings', true)
+					+navItem('/me', 'Cài đặt', 'settings', true)
 					+navItem('/my-tours', 'Tour đã đặt', 'briefcase')
-					+navItem('#', 'Các đánh giá', 'star')
-				- if (user.role === 'admin')             
+					li.my-reviews
+						a(href='#')(data-user-id=`${user.id}`)
+							- console.log(user)
+							svg
+								use(xlink:href='img/icons.svg#icon-star')
+							| Các đánh giá
+				- if (user.role === 'admin')
 					.admin-nav
 						h5.admin-nav__heading Admin
 						ul.side-nav

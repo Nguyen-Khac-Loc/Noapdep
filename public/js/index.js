@@ -5,6 +5,7 @@ import { updateData } from "./updateData";
 import { displayMap } from "./mapbox";
 import { bookTour } from "./stripe";
 import { showAlert } from "./alert";
+import axios from "axios";
 
 const mapbox = document.getElementById("map");
 const loginForm = document.querySelector(".form--login");
@@ -17,6 +18,18 @@ const bookBtn = document.getElementById("book-tour");
 const logoutBtn = document.querySelector(".nav__el--logout");
 const deleteAccountBtn = document.querySelector(".btn--delete--user");
 const uploadUserPhoto = document.querySelector('.form__upload');
+const myReviewsBtn = document.querySelector('.my-reviews');
+
+if (myReviewsBtn) {
+	myReviewsBtn.addEventListener("click", async event => {
+		event.preventDefault();
+		const root = document.getElementById('root');
+		root.style.display = "none";
+		const { userId } = event.target.dataset;
+		const { data } = await axios.get(`/api/users/${userId}/reviews`);
+		console.log(data.data.data);
+	});
+}
 
 if (uploadUserPhoto) {
 	uploadUserPhoto.addEventListener('change', (e) => {
@@ -76,6 +89,7 @@ if (signupForm) {
 }
 if (deleteAccountBtn)
 	deleteAccountBtn.addEventListener("click", async () => {
+		deleteAccountBtn.textContent = 'Đang xử lý..';
 		await deleteAccount();
 		showAlert("success", "Xoá thành công");
 		window.setTimeout(() => {
