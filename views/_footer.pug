@@ -1,0 +1,8 @@
+footer.footer
+    .footer__logo
+        //- img(src='img/Untitled.png' alt='logo')
+    ul.footer__nav
+        li: a(href='#') Giới thiệu             
+        li: a(href='#') Liên hệ    
+    - const currentDate = new Date()
+    p.footer__copyright &copy; meoemeo #{currentDate.getMonth()+1}-#{currentDate.getFullYear()} 
