@@ -3,3 +3,6 @@
 /dev-data
 /node_modules
 /package-lock.json
+/public/js/bundle.js
+/public/js/bundle.js.map
+/public/img
