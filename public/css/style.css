@@ -300,8 +300,6 @@ body {
 	background-color: #586;
 	padding: 0 5rem;
 	height: 8rem;
-	position: relative;
-	z-index: 100;
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -311,6 +309,10 @@ body {
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;
+	z-index: 1200;
+	position: sticky;
+	top: 0;
+	box-shadow: 0 2px 4px rgba(40, 25, 50, 70);
 }
 
 @media only screen and (max-width: 62.5em) {
