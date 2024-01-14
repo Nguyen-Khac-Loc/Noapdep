@@ -8,7 +8,7 @@ const AppError = require("../utils/appError");
 const getIndex = catchAsync(async (req, res, next) => {
 	const tours = await Tour.find();
 	res.status(200).render("index", {
-		title: "Home",
+		title: "Trang chủ",
 		showButton: true,
 		tours,
 	});
@@ -32,7 +32,7 @@ const getTour = catchAsync(async (req, res, next) => {
 });
 
 const getLogin = (req, res) => {
-	res.status(200).render("login", {
+	res.status(200).render("authen", {
 		title: "Đăng nhập",
 		showButton: false,
 	});
@@ -77,12 +77,7 @@ const updateUserData = catchAsync(async (req, res, next) => {
 	});
 });
 
-const forgotPassword = (req, res) => {
-	res.status(200).render("forgotPassword", {
-		title: "Quên mật khẩu",
-		showButton: false,
-	});
-};
+
 module.exports = {
 	getMyTours,
 	getIndex,
@@ -90,5 +85,5 @@ module.exports = {
 	getTour,
 	getAccount,
 	getLogin,
-	forgotPassword,
+	
 };

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { showAlert } from "./alert";
+import { showAlert } from "./misc";
 
 //type la pw hoac data
 export const updateData = async (data, type) => {

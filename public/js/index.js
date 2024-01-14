@@ -1,10 +1,9 @@
 import "@babel/polyfill";
-import { scrollFunction, scrollToTop } from "./scrolltotop";
+import { scrollFunction, scrollToTop, showAlert, toggleForms } from "./misc";
 import { login, logout, forgotPassword, signup, deleteAccount } from "./authen";
 import { updateData } from "./updateData";
 import { displayMap } from "./mapbox";
 import { bookTour } from "./stripe";
-import { showAlert } from "./alert";
 import axios from "axios";
 
 const mapbox = document.getElementById("map");
@@ -19,6 +18,9 @@ const logoutBtn = document.querySelector(".nav__el--logout");
 const deleteAccountBtn = document.querySelector(".btn--delete--user");
 const uploadUserPhoto = document.querySelector('.form__upload');
 const myReviewsBtn = document.querySelector('.my-reviews');
+
+
+
 
 if (myReviewsBtn) {
 	myReviewsBtn.addEventListener("click", async event => {
@@ -67,10 +69,11 @@ if (mapbox) {
 }
 
 if (loginForm) {
+	toggleForms();
 	loginForm.addEventListener("submit", (e) => {
 		e.preventDefault();
-		const email = document.getElementById("email").value;
-		const password = document.getElementById("password").value;
+		const email = document.getElementById("login-email").value;
+		const password = document.getElementById("login-password").value;
 		login(email, password);
 	});
 }
@@ -80,8 +83,8 @@ if (signupForm) {
 		e.preventDefault();
 		document.querySelector(".btn--signup").textContent = "Đang xử lý..";
 		const name = document.getElementById("name").value;
-		const email = document.getElementById("email").value;
-		const password = document.getElementById("password").value;
+		const email = document.getElementById("signup-email").value;
+		const password = document.getElementById("signup-password").value;
 		const confirmPassword = document.getElementById("confirmPassword").value;
 
 		signup(name, email, password, confirmPassword);
@@ -101,8 +104,7 @@ if (forgotPasswordForm) {
 	forgotPasswordForm.addEventListener("submit", async (e) => {
 		e.preventDefault();
 		document.querySelector(".btn--forgotpassword").textContent = "Đang xử lý..";
-
-		const email = document.getElementById("email").value;
+		const email = document.getElementById("forgot-email").value;
 		await forgotPassword(email);
 		document.querySelector(".btn--forgotpassword").textContent = "Xác nhận";
 	});
