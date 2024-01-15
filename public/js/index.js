@@ -7,18 +7,20 @@ import { bookTour } from "./stripe";
 import axios from "axios";
 
 const mapbox = document.getElementById("map");
+const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
 const loginForm = document.querySelector(".form--login");
 const signupForm = document.querySelector(".form--signup");
-const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+const forgotPasswordForm = document.querySelector(".form--forgotpassword");
+const logoutBtn = document.querySelector(".nav__el--logout");
+
 const userDataForm = document.querySelector(".form-user-data");
 const userPasswordForm = document.querySelector(".form-user-password");
-const forgotPasswordForm = document.querySelector(".form--forgotpassword");
-const bookBtn = document.getElementById("book-tour");
-const logoutBtn = document.querySelector(".nav__el--logout");
 const deleteAccountBtn = document.querySelector(".btn--delete--user");
 const uploadUserPhoto = document.querySelector('.form__upload');
 const myReviewsBtn = document.querySelector('.my-reviews');
 
+const bookBtn = document.getElementById("book-tour");
 
 
 
@@ -29,7 +31,6 @@ if (myReviewsBtn) {
 		root.style.display = "none";
 		const { userId } = event.target.dataset;
 		const { data } = await axios.get(`/api/users/${userId}/reviews`);
-		console.log(data.data.data);
 	});
 }
 
