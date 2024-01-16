@@ -2,7 +2,7 @@ const express = require('express');
 
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
-const reviewRouter = require('./reviewRoute');
+
 const bookingRouter = require('./bookingRoute');
 
 
@@ -20,7 +20,7 @@ router.patch('/resetpassword/:token', authController.resetPassword);
 router.use(authController.protect);
 
 router.use('/:userId/bookings', bookingRouter);
-router.use('/:userId/reviews', reviewRouter);
+router.use('/my-reviews', userController.getSelf,userController.getMyReviews);
 router.patch('/updatemypassword', authController.updatePassword);
 router.get('/me', userController.getSelf, userController.getUser);
 router.patch('/updateme',

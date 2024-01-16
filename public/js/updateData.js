@@ -58,10 +58,10 @@ export const updateReview = async (id, review, rating) => {
 	}
 };
 
-export const fetchReviews = async (id, container) => {
+export const fetchReviews = async (container) => {
 
-	const { data } = await axios.get(`/api/users/${id}/reviews`);
-	const reviews = data.data.data;
+	const { data } = await axios.get(`/api/users/my-reviews`);
+	const reviews = data.reviews;
 	container.innerHTML = '';
 
 	reviews.forEach(async review => {

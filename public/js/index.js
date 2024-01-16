@@ -42,10 +42,9 @@ if (myReviewsBtn) {
 		sidecontent.forEach(function (el) {
 			el.style.display = "none";
 		});
-		reviewsContainer.style.display = "block";		
-		const { userId } = event.target.dataset;
-		
-		await fetchReviews(userId,reviewsContainer) ;
+		reviewsContainer.style.display = "block";
+
+		await fetchReviews(reviewsContainer);
 	});
 }
 
