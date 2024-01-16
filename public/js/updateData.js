@@ -15,7 +15,6 @@ export const updateData = async (data, type) => {
 		});
 		if (res.data.status === "success") {
 			showAlert("success", "Cập nhật thành công");
-			location.reload();
 		}
 	} catch (err) {
 		showAlert("error", err.response.data.message);

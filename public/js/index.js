@@ -114,6 +114,7 @@ if (deleteAccountBtn)
 			location.assign("/");
 		}, 1000);
 	});
+if (logoutBtn) logoutBtn.addEventListener("click", logout);
 
 if (forgotPasswordForm) {
 	forgotPasswordForm.addEventListener("submit", async (e) => {
@@ -124,7 +125,6 @@ if (forgotPasswordForm) {
 		document.querySelector(".btn--forgotpassword").textContent = "Xác nhận";
 	});
 }
-if (logoutBtn) logoutBtn.addEventListener("click", logout);
 
 if (userDataForm) {
 	userDataForm.addEventListener("submit", (e) => {
