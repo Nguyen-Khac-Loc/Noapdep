@@ -1,17 +1,18 @@
 import "@babel/polyfill";
-import { scrollFunction, scrollToTop, showAlert, toggleForms } from "./misc";
+import { scrollFunction, scrollToTop, showAlert, toggleForms, changeActiveState } from "./misc";
 import { login, logout, forgotPassword, signup, deleteAccount } from "./authen";
-import { updateData } from "./updateData";
+import { updateData, deleteReview, updateReview } from "./updateData";
 import { displayMap } from "./mapbox";
 import { bookTour } from "./stripe";
 import axios from "axios";
 
 const mapbox = document.getElementById("map");
 const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+const bookBtn = document.getElementById("book-tour");
 
 const loginForm = document.querySelector(".form--login");
-const signupForm = document.querySelector(".form--signup");
-const forgotPasswordForm = document.querySelector(".form--forgotpassword");
+const signupForm = document.querySelector(".sign-up-form");
+const forgotPasswordForm = document.querySelector(".forgot-password-form");
 const logoutBtn = document.querySelector(".nav__el--logout");
 
 const userDataForm = document.querySelector(".form-user-data");
@@ -20,17 +21,91 @@ const deleteAccountBtn = document.querySelector(".btn--delete--user");
 const uploadUserPhoto = document.querySelector('.form__upload');
 const myReviewsBtn = document.querySelector('.my-reviews');
 
-const bookBtn = document.getElementById("book-tour");
-
-
 
 if (myReviewsBtn) {
 	myReviewsBtn.addEventListener("click", async event => {
 		event.preventDefault();
-		const root = document.getElementById('root');
-		root.style.display = "none";
+		const root = document.querySelectorAll('.user-view__form-container');
+		root.forEach(function (el) {
+			el.style.display = "none";
+		});
+		let currentPage = 1;
+		const limit = 1;
 		const { userId } = event.target.dataset;
-		const { data } = await axios.get(`/api/users/${userId}/reviews`);
+
+		
+		const fetchReviews = async (page) => {
+
+			const { data } = await axios.get(`/api/users/${userId}/reviews?page=${currentPage}`);
+			const reviews = data.data.data;
+			
+			const reviewsContainer = document.querySelector('.my-reviews-table');
+			reviewsContainer.innerHTML = '';
+
+			reviews.forEach(review => {
+				const form = document.createElement('form');
+				form.classList.add('form', 'review-form', 'login-form');
+
+
+				const formHTML = `
+			<label class="form__label" for="tour-name-of-review-${review._id}">Tour: ${review.tour.name}</label>
+    <div class="form__group">
+        <label class="form__label" for="review-${review._id}">Nhận xét</label>
+        <textarea id="review-${review._id}" class="form__input" name="review" required>${review.review}</textarea>
+    </div>
+    <div class="form__group">
+        <label class="form__label" for="rating-${review._id}">Đánh giá</label>
+        <input type="number" id="rating-${review._id}" class="form__input" name="rating" value="${review.rating}" required min="1" max="5">
+    </div>
+    <div class="form__group">
+        <button type="button" class="btn btn--small btn--green save-review">Lưu</button>
+        <button type="button" class="btn btn--small delete-review">Xoá</button>
+    </div>
+    <br>
+	
+`;
+				form.innerHTML = formHTML;
+				reviewsContainer.appendChild(form);
+				
+
+				const btnSaveReview = form.querySelector('.save-review');
+				const btnDeleteReview = form.querySelector('.delete-review');
+			// 	reviewsContainer.insertAdjacentHTML('beforeend', paginationHTML);
+
+			// 	const paginationHTML = `
+			// 	<button class="pagination-prev">Previous</button>
+			// 	<div class="pagination-info"></div>
+			// 	<button class="pagination-next">Next</button>
+
+			// `;
+				// document.querySelector('.pagination-next').addEventListener('click', () => {
+				// 	currentPage++;
+				// 	fetchReviews(currentPage);
+				// });
+
+				// document.querySelector('.pagination-prev').addEventListener('click', () => {
+				// 	if (currentPage > 1 && currentPage < reviews.length) {
+				// 		currentPage--;
+				// 		fetchReviews(currentPage);
+				// 	}
+				// });
+				btnSaveReview.addEventListener('click', async (e) => {
+					e.preventDefault();
+
+					const reviewarea = document.getElementById(`review-${review._id}`).value;
+					const ratingarea = document.getElementById(`rating-${review._id}`).value;
+					await updateReview(`${review._id}`, reviewarea, ratingarea);
+
+				});
+				btnDeleteReview.addEventListener('click', async (e) => {
+					e.preventDefault();
+					await deleteReview(`${review._id}`);
+				});
+
+
+			});
+		};
+		await fetchReviews(currentPage);
 	});
 }
 
@@ -95,7 +170,7 @@ if (deleteAccountBtn)
 	deleteAccountBtn.addEventListener("click", async () => {
 		deleteAccountBtn.textContent = 'Đang xử lý..';
 		await deleteAccount();
-		showAlert("success", "Xoá thành công");
+		showAlert("success", "Xoá thành công!");
 		window.setTimeout(() => {
 			location.assign("/");
 		}, 1000);

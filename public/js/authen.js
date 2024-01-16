@@ -12,7 +12,7 @@ export const login = async (email, password) => {
 			},
 		});
 		if (res.data.status === "success") {
-			showAlert("success", "Đăng nhập thành công");
+			showAlert("success", "Đăng nhập thành công!");
 			window.setTimeout(() => {
 				location.assign("/");
 			}, 1000);
@@ -34,7 +34,7 @@ export const signup = async (name, email, password, confirmPassword) => {
 			},
 		});
 		if (res.data.status === "success") {
-			showAlert("success", "Đăng ký thành công.");
+			showAlert("success", "Đăng ký thành công. Đang chuyển hướng..");
 			window.setTimeout(() => {
 				location.assign("/");
 			}, 1000);

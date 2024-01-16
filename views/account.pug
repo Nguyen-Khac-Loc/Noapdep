@@ -29,7 +29,8 @@ block content
 							+navItem('#', 'Quản lý booking', 'briefcase')     
 
 
-			.user-view__content#root
+			.user-view__content
+				.my-reviews-table
 				.user-view__form-container
 					h2.heading-secondary.ma-bt-md Thông tin tài khoản
 					//- ko api
@@ -48,7 +49,7 @@ block content
 							#previewimage
 						.form__group.right
 							button.btn.btn--small.btn--green Lưu
-				.line &nbsp;
+					.line &nbsp;
 				.user-view__form-container
 					h2.heading-secondary.ma-bt-md Đổi mật khẩu
 					form.form.form-user-password
@@ -63,7 +64,7 @@ block content
 							input#password-confirm.form__input(type='password', placeholder='••••••••', required, minlength='8')
 						.form__group.right
 							button.btn.btn--small.btn--green.btn--save--password Lưu
-				.line &nbsp;
+					.line &nbsp;
 				.user-view__form-container
 					h2.heading-secondary.ma-bt-md Xoá tài khoản
 					br

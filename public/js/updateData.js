@@ -21,3 +21,39 @@ export const updateData = async (data, type) => {
 		showAlert("error", err.response.data.message);
 	}
 };
+
+export const deleteReview = async (id) => {
+	try {
+		const res = await axios({
+			method: "DELETE",
+			url: `/api/reviews/${id}`,
+		});
+
+		if (res) {
+			showAlert('success', 'Đã xoá đánh giá.');
+		}
+
+	} catch (err) {
+		showAlert('error', err.response.data.message);
+	}
+};
+
+export const updateReview = async (id, review, rating)=>{
+	try {
+		const res = await axios({
+			method: "PATCH",
+			url: `/api/reviews/${id}`,
+			data: {
+				review: review,
+				rating: rating,
+			},
+		});
+
+		if (res.data.status === 'success') {
+			showAlert('success', 'Đã sửa thành công.');
+		}
+
+	} catch (err) {
+		showAlert('error', err.response.data.message);
+	}
+}

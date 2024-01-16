@@ -1,7 +1,7 @@
 extends _layout
 block content
 	main.main
-		.login-form-form.login-form(style='display: block;')
+		.login-form
 			h2.heading-secondary.ma-bt-lg Đăng nhập
 			form.form.form--login
 				.form__group
@@ -13,30 +13,6 @@ block content
 				.form__group
 					button.btn.btn--green Đăng nhập
 					a.btn#signup-btn Đăng kí
-				a(style='color: inherit').btn#forgotPasswordLink Quên mật khẩu?
-		.forgot-password-form.login-form(style='display: none;')
-			h2.heading-secondary.ma-bt-lg Quên mật khẩu
-			form.form.form--forgotpassword
-				.form__group
-					label.form__label(for='email') Email
-					input#forgot-email.form__input.ma-bt-md(type='email', placeholder='you@example.com', value='admin@legitaf.io', required)                                 
-					button.btn.btn--green.btn--forgotpassword Xác nhận                   
-					a(style='color: inherit').btn.back-btn Huỷ
-		.sign-up-form.login-form(style='display: none;')
-			h2.heading-secondary.ma-bt-lg Đăng ký
-			form.form.form--signup
-				.form__group
-					label.form__label(for='email') Email
-					input#signup-email.form__input(type='email', placeholder='vidu@mail.com', required)
-				.form__group
-					label.form__label(for='email') Tên
-					input#name.form__input(type='text', placeholder='Nugyen Vi Du',  required)
-				.form__group.ma-bt-md
-					label.form__label(for='password') Mật khẩu
-					input#signup-password.form__input(type='password', placeholder='••••••••', required, minlength='8')
-				.form__group.ma-bt-md
-					label.form__label(for='confirmPassword') Xác nhận mật khẩu
-					input#confirmPassword.form__input(type='password', placeholder='••••••••', required, minlength='8')
-				.form__group
-					button.btn.btn--green.btn--signup Xác nhận
-					a(style='color: inherit').btn.back-btn Huỷ
+				a(style='color: inherit').btn#forgotpassword-btn Quên mật khẩu?
+		.forgot-password-form
+		.sign-up-form

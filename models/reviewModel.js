@@ -40,6 +40,10 @@ reviewSchema.pre(/^find/, function (next) {
 		.populate({
 			path: 'user',
 			select: 'name photo',
+		})
+		.populate({
+			path: 'tour',
+			select: 'name',
 		});
 	next();
 });
@@ -71,7 +75,7 @@ reviewSchema.statics.calcAvgRatings = async function (tourId) {
 };
 
 reviewSchema.post('save', function () {
-	this.constructor.calcAvgRatings(this.tour);
+	this.constructor.calcAvgRatings(this.tour._id);
 });
 
 reviewSchema.pre(/^findOneAnd/, async function (next) {
@@ -81,7 +85,7 @@ reviewSchema.pre(/^findOneAnd/, async function (next) {
 
 reviewSchema.post(/^findOneAnd/, async function () {
 	// this.review = await this.findOne();->ko the chay o post,vi query da dc thuc hien
-	await this.review.constructor.calcAvgRatings(this.review.tour);
+	await this.review.constructor.calcAvgRatings(this.review.tour._id);
 });
 
 const Review = mongoose.model('Review', reviewSchema);

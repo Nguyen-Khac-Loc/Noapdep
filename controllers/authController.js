@@ -30,9 +30,9 @@ const createSendToken = function (user, statusCode, res) {
 	res.status(statusCode).json({
 		token,
 		status: "success",
-		data: {
-			user,
-		},
+		// data: {
+		// 	user,
+		// },
 	});
 };
 
@@ -46,7 +46,7 @@ const signup = catchAsync(async (req, res, next) => {
 	});
 	const url = `${req.protocol}://${req.get("host")}/me`;
 	// console.log(url);
-	await new Email(newUser, url).sendWelcome();
+	// await new Email(newUser, url).sendWelcome();
 	createSendToken(newUser, 201, res);
 });
 
@@ -152,7 +152,7 @@ const updatePassword = catchAsync(async (req, res, next) => {
 
 	user.password = req.body.password;
 	user.confirmPassword = req.body.confirmPassword;
-	
+
 	await user.save();
 	createSendToken(user, 200, res);
 });
