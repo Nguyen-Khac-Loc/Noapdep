@@ -38,7 +38,7 @@ export const deleteReview = async (id) => {
 	}
 };
 
-export const updateReview = async (id, review, rating)=>{
+export const updateReview = async (id, review, rating) => {
 	try {
 		const res = await axios({
 			method: "PATCH",
@@ -56,22 +56,25 @@ export const updateReview = async (id, review, rating)=>{
 	} catch (err) {
 		showAlert('error', err.response.data.message);
 	}
-}
+};
 
 export const fetchReviews = async (id, container) => {
 
 	const { data } = await axios.get(`/api/users/${id}/reviews`);
 	const reviews = data.data.data;
-
 	container.innerHTML = '';
 
-	reviews.forEach(review => {
+	reviews.forEach(async review => {
 		const form = document.createElement('form');
 		form.classList.add('form', 'review-form', 'login-form');
 
-
+		const { data } = await axios({
+			method: "GET",
+			url: `/api/tours/${review.tour}`,
+		});
+		const tourName = data.data.data.name;
 		const formHTML = `
-	<label class="form__label" for="tour-name-of-review-${review._id}">Tour: ${review.tour.name}</label>
+	<label class="form__label" for="tour-name-of-review-${review._id}">Tour: ${tourName}</label>
 <div class="form__group">
 <label class="form__label" for="review-${review._id}">Nhận xét</label>
 <textarea id="review-${review._id}" class="form__input" name="review" required>${review.review}</textarea>
@@ -87,6 +90,7 @@ export const fetchReviews = async (id, container) => {
 <br>
 
 `;
+
 		form.innerHTML = formHTML;
 		container.appendChild(form);
 
