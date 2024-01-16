@@ -1,32 +1,39 @@
 extends _layout
 
-mixin navItem(link, text, icon, active)
-	li(class=`${active ? 'side-nav--active' : ''}` )
-		a(href=`${link}`)
-			svg
-				use(xlink:href=`img/icons.svg#icon-${icon}`)
-			| #{text}
+mixin navItem(link,data, text, icon)
+	li(class=`my-${text} nav-items` )
+		if(data ==='user')
+			a(href=`${link}`)(data-user-id=`${user.id}`)
+				svg
+					use(xlink:href=`img/icons.svg#icon-${icon}`)
+				| #{text}
+		else
+			a(href=`${link}`)
+				svg
+					use(xlink:href=`img/icons.svg#icon-${icon}`)
+				| #{text}
 
 block content
 	main.main
 		.user-view
 			nav.user-view__menu
 				ul.side-nav
-					+navItem('/me', 'Cài đặt', 'settings', true)
-					+navItem('/my-tours', 'Tour đã đặt', 'briefcase')
-					li.my-reviews
-						a(href='#')(data-user-id=`${user.id}`)
-							svg
-								use(xlink:href='img/icons.svg#icon-star')
-							| Các đánh giá
+					+navItem('#', 'settings', 'settings', 'settings')
+					+navItem('/my-tours', '', 'tours', 'briefcase')
+					+navItem('#', 'user', 'reviews', 'star')
+					//- li.my-reviews
+					//- 	a(href='#')(data-user-id=`${user.id}`)
+					//- 		svg
+					//- 			use(xlink:href='img/icons.svg#icon-star')
+					//- 		| Các đánh giá
 				- if (user.role === 'admin')
 					.admin-nav
 						h5.admin-nav__heading Admin
 						ul.side-nav
-							+navItem('#', 'Quản lý tour', 'map')
-							+navItem('#', 'Quản lý user', 'users')
-							+navItem('#', 'Quản lý review', 'star')
-							+navItem('#', 'Quản lý booking', 'briefcase')     
+							+navItem('#', '', 'Quản lý tour', 'map')
+							+navItem('#', '', 'Quản lý user', 'users')
+							+navItem('#', '', 'Quản lý review', 'star')
+							+navItem('#', '', 'Quản lý booking', 'briefcase')     
 
 
 			.user-view__content

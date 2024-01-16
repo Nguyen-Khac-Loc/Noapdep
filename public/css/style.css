@@ -296,6 +296,10 @@ body {
 	outline-offset: 3px;
 }
 
+.my-reviews-table {
+	display: block;
+}
+
 .header {
 	background-color: #586;
 	padding: 0 5rem;
